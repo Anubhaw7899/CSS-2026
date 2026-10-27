@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic CSS - Grid</title>
+    <style>
+        .container{
+            display: grid;
+            /* grid-template-columns: 100px 100px 100px; */
+            grid-template-columns: repeat(5,1fr);
+            /* grid-template-columns: repeat(3, 32%); */
+
+
+            /* grid-template-rows: 100px 100px 100px; */
+            /* grid-template-rows: repeat(3, 1fr); */
+            /* grid-template-rows: repeat(2, 200px); */
+            /* grid-template-rows: 300px 200px; */
+            grid-auto-rows: 300px;
+            
+
+            gap: 10px;
+            background-color: rgb(181, 233, 13);
+        }
+        div{
+            text-align: center;
+            line-height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div style="background-color: red;">1</div>
+        <div style="background-color: blue;">2</div>
+        <div style="background-color: green;">3</div>
+        <div style="background-color: yellow;">4</div>
+        <div style="background-color: purple;">5</div>
+        <div style="background-color: orange;">6</div>
+        <div style="background-color: pink;">7</div>
+        <div style="background-color: lightgray;">8</div>
+        <div style="background-color: lightblue;">9</div>
+        <div style="background-color: lightblue;">10</div>
+
+    </div>
+</body>
+</html>

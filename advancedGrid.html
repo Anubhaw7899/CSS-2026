@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advance CSS Grid</title>
+    <!-- grid-areas, grid-gap, grid-auto-flow   -->
+     <style>
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 100px 100px 100px;
+            grid-template-areas:
+                "header header header"
+                "menu main main"
+                "footer footer footer";
+            grid-gap: 10px;
+            /* row-gap: 10px; */
+            /* grid-auto-flow: row; default */
+            grid-auto-flow: column;
+        }
+        .grid-container > div {
+            text-align: center;
+            line-height: 100px;
+            padding: 10px;
+        }
+     </style>
+</head>
+<body>
+    <!-- Grid Areas, grid-gap, grid-auto-flow -->
+    <div class="grid-container">
+        <div style="background-color: red; grid-area: header;">Header</div>
+        <div style="background-color: blue; grid-area: menu;">Menu</div>
+        <div style="background-color: green; grid-area: main;">Main</div>
+        <div style="background-color: yellow; grid-area: footer;">Footer</div>
+    </div>
+</body>
+</html>
