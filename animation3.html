@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rolling Perimeter Ball Animation</title>
+    <style>
+        /* 1. Global Setup & Canvas Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #05050a;
+            min-height: 100vh;
+            width: 100vw;
+            overflow: hidden; /* Prevents scrollbars from appearing during tracking */
+            position: relative;
+        }
+
+        /* 2. The Ball Asset Styling */
+        .rolling-ball {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            position: absolute;
+            
+            /* High-fidelity glowing styling */
+            background: radial-gradient(circle at 30% 30%, #00ffcc, #00a3ff);
+            box-shadow: 0 0 20px #00ffcc, 
+                        0 0 40px #00a3ff,
+                        inset -5px -5px 15px rgba(0,0,0,0.4);
+
+            /* 
+               Defines the perimeter track runtime loop.
+               Using linear acceleration keeps the speed completely constant 
+               as it rounds each corner.
+            */
+            animation: perimeterRoll 8s linear infinite;
+        }
+
+        /* 3. Crosshair Pattern Visual Accent (Optional) */
+        .ball-texture-line {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 80%;
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.4);
+            transform: translate(-50%, -50%);
+            border-radius: 2px;
+        }
+
+        /* =======================================================
+           ANIMATION KEYFRAMES (Corner Math & Rotation Physics)
+           Calculated using viewport metrics (vw/vh) minus ball size (60px)
+           ======================================================= */
+        @keyframes perimeterRoll {
+            /* --- TOP EDGE: Moving Left to Right --- */
+            0% {
+                top: 0;
+                left: 0;
+                transform: rotate(0deg);
+            }
+            25% {
+                top: 0;
+                left: calc(100vw - 60px); /* Hits Top-Right Corner */
+                transform: rotate(360deg); /* 1 Full clockwise roll */
+            }
+
+            /* --- RIGHT EDGE: Moving Top to Bottom --- */
+            25.001% {
+                /* Keeps position locked exactly at the edge boundary */
+                top: 0;
+                left: calc(100vw - 60px);
+            }
+            50% {
+                top: calc(100vh - 60px); /* Hits Bottom-Right Corner */
+                left: calc(100vw - 60px);
+                transform: rotate(720deg); /* 2 Full rolls total */
+            }
+
+            /* --- BOTTOM EDGE: Moving Right to Left --- */
+            50.001% {
+                top: calc(100vh - 60px);
+                left: calc(100vw - 60px);
+            }
+            75% {
+                top: calc(100vh - 60px);
+                left: 0; /* Hits Bottom-Left Corner */
+                transform: rotate(1080deg); /* 3 Full rolls total */
+            }
+
+            /* --- LEFT EDGE: Moving Bottom to Top --- */
+            75.001% {
+                top: calc(100vh - 60px);
+                left: 0;
+            }
+            100% {
+                top: 0; /* Returns seamlessly to Top-Left starting point */
+                left: 0;
+                transform: rotate(1440deg); /* 4 Complete structural loops completed */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- The physical rolling ball with an embedded alignment line to showcase rotation -->
+    <div class="rolling-ball">
+        <div class="ball-texture-line"></div>
+    </div>
+
+</body>
+</html>

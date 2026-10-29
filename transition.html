@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimalist Transition Page</title>
+    <style>
+        /* 1. Global Reset & Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* 2. Page Load Animation Mechanics */
+        @keyframes pageLoadTransition {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 3. Main Card Layout & Transition Trigger */
+        .card {
+            background-color: #1e293b;
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            
+            /* Applies the entry animation on page load */
+            animation: pageLoadTransition 0.8s ease-out forwards;
+        }
+
+        /* 4. Content Styles */
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #38bdf8;
+        }
+
+        p {
+            color: #94a3b8;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        /* 5. Button Hover Micro-Transitions */
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            background-color: #38bdf8;
+            color: #0f172a;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            
+            /* Standard CSS transition property rules */
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        /* Changes trigger smoothly when hovering */
+        .btn:hover {
+            background-color: #0ea5e9;
+            transform: scale(1.05);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+
+    <main class="card">
+        <h1>Welcome</h1>
+        <p>This is a simple, low-content webpage designed to showcase smooth entry and hover transition effects natively using CSS.</p>
+        <a href="#" class="btn">Explore</a>
+    </main>
+
+</body>
+</html>

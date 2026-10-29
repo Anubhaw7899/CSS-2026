@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beautiful Jumping Balls Animation</title>
+    <style>
+        /* 1. Global Setup */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f172a, #1e1b4b);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* 2. Scene Container */
+        .stage {
+            display: flex;
+            gap: 40px;
+            align-items: flex-end; /* Anchors the floor level for the balls */
+            height: 300px;
+            padding-bottom: 20px;
+        }
+
+        /* 3. Individual Ball Container (Handles the vertical jump) */
+        .ball-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* 
+               cubic-bezier(0.47, 0, 0.745, 0.715) creates a realistic gravity curve:
+               The ball starts slow at the peak, accelerates down, and shoots back up quickly.
+            */
+            animation: jump 1.2s cubic-bezier(0.47, 0, 0.745, 0.715) infinite alternate;
+        }
+
+        /* 4. The Core Ball Design (Handles the squish-and-stretch effect) */
+        .ball {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            box-shadow: inset 0 -10px 20px rgba(0, 0, 0, 0.3),
+                        0 10px 20px rgba(0, 0, 0, 0.2);
+            /* 
+               The second animation layer handles the physical deformation ("squish") 
+               exactly when the container impacts the imaginary ground floor.
+            */
+            animation: squish 1.2s ease-in-out infinite alternate;
+        }
+
+        /* 5. Custom Styling per Ball (Colors & Staggered Timing Delays) */
+        .ball-1 .ball { background: linear-gradient(135deg, #ff007f, #7928ca); }
+        .ball-1 { animation-delay: 0s; }
+        .ball-1 .ball { animation-delay: 0s; }
+
+        .ball-2 .ball { background: linear-gradient(135deg, #00f2fe, #4facfe); }
+        .ball-2 { animation-delay: 0.2s; }
+        .ball-2 .ball { animation-delay: 0.2s; }
+
+        .ball-3 .ball { background: linear-gradient(135deg, #00ff87, #60efff); }
+        .ball-3 { animation-delay: 0.4s; }
+        .ball-3 .ball { animation-delay: 0.4s; }
+
+        /* 6. Realistic Dynamic Floor Shadows */
+        .shadow {
+            position: absolute;
+            bottom: -15px;
+            width: 50px;
+            height: 8px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 50%;
+            filter: blur(2px);
+            z-index: -1;
+            /* The shadow scales up/fades out as the ball ascends */
+            animation: shadowScale 1.2s cubic-bezier(0.47, 0, 0.745, 0.715) infinite alternate;
+        }
+
+        .ball-1 .shadow { animation-delay: 0s; }
+        .ball-2 .shadow { animation-delay: 0.2s; }
+        .ball-3 .shadow { animation-delay: 0.4s; }
+
+        /* ==========================================
+           ANIMATION KEYFRAMES (The Physics Engine)
+           ========================================== */
+
+        /* Vertical leaping movement */
+        @keyframes jump {
+            0% {
+                transform: translateY(-180px); /* Peak height */
+            }
+            95% {
+                transform: translateY(0); /* Just touching the floor */
+            }
+            100% {
+                transform: translateY(0); /* Stays grounded briefly to allow the squish */
+            }
+        }
+
+        /* Physical deformation on collision */
+        @keyframes squish {
+            0% {
+                transform: scaleX(1) scaleY(1); /* Perfect sphere at the peak */
+            }
+            90% {
+                transform: scaleX(0.95) scaleY(1.05); /* Stretches slightly while rushing downward */
+            }
+            95% {
+                transform: scaleX(1) scaleY(1); /* Snaps normal right before floor impact */
+            }
+            100% {
+                transform: scaleX(1.3) scaleY(0.7); /* Flattens outwards on contact with the ground */
+            }
+        }
+
+        /* Synchronized shadow size & opacity adjustments */
+        @keyframes shadowScale {
+            0% {
+                transform: scale(0.3);
+                opacity: 0.1; /* Faint, wide shadow when the ball is high up */
+            }
+            95% {
+                transform: scale(1);
+                opacity: 0.8; /* Dark, crisp shadow just before structural impact */
+            }
+            100% {
+                transform: scale(1.2);
+                opacity: 0.9; /* Widens slightly as the flattening ball covers more surface area */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="stage">
+        <!-- Ball 1 -->
+        <div class="ball-container ball-1">
+            <div class="ball"></div>
+            <div class="shadow"></div>
+        </div>
+
+        <!-- Ball 2 -->
+        <div class="ball-container ball-2">
+            <div class="ball"></div>
+            <div class="shadow"></div>
+        </div>
+
+        <!-- Ball 3 -->
+        <div class="ball-container ball-3">
+            <div class="ball"></div>
+            <div class="shadow"></div>
+        </div>
+    </div>
+
+</body>
+</html>
